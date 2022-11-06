@@ -1,0 +1,63 @@
+version: '3'
+
+networks:
+  net-backend:
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.10.1.0/24
+
+services:
+  database:
+    image: mongo:latest
+    container_name: necati-mongo
+    hostname: necati-mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: necati
+      MONGO_INITDB_ROOT_PASSWORD: necati
+      MONGO_INITDB_DATABASE: necati
+    volumes:
+      - ./mongo-setup.js:/docker-entrypoint-initdb.d/mongo-setup.js:ro
+      - ./vol-mongodb:/data/db
+      - ./vol-mongodb/log:/var/log/mongodb/
+    expose:
+      - 27017
+    ports:
+      - 27017:27017
+    restart: always
+    networks:
+      net-backend:
+        ipv4_address: 10.10.1.212
+
+  api:
+    container_name: necati-api
+    hostname: necati-api
+    build:
+      context: src
+      dockerfile: Dockerfile
+    entrypoint:
+      - flask
+      - run
+      - --host=0.0.0.0
+    environment:
+      FLASK_DEBUG: 1
+      FLASK_APP: app.py
+      FLASK_RUN_HOST: 0.0.0.0
+      TEMPLATES_AUTO_RELOAD: 'True'
+      FLASK_ENV: Development
+    ports:
+      - 9090:5000
+    links:
+      - database
+    depends_on:
+      - database
+    volumes:
+      - ./src:/app
+    networks:
+      net-backend:
+        ipv4_address: 10.10.1.214
+    extra_hosts:
+      - necati-mongo:10.10.1.212
+
+volumes:
+  persistent:
