@@ -1,4 +1,4 @@
-# Backend Development (PoC): Necati REST API (necati-api)
+# Backend Development (PoC): Necati REST API
 
 [![Language](https://img.shields.io/badge/language-python3-brightgreen)](https://www.python.org/)
 [![License](https://img.shields.io/github/license/davait/necati-api)](https://opensource.org/licenses/GPL-3.0)
@@ -8,6 +8,9 @@ This is a PoC of RESTful API with Python and MongoDB using Flask microframework.
 
 ## Authors
 - [Eugenio Grytsenko](https://github.com/davait)
+
+## Support
+- [info@davait.com](mailto:info@davait.com)
 
 ## Stack
 
