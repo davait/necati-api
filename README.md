@@ -23,7 +23,7 @@ This is a PoC of RESTful API with Python and MongoDB using Flask microframework.
 
 ## Usage
 
-[Install Docker](https://www.docker.com/products/docker-desktop) if you don't have it yet and please use a clean docker installation without allocated resources like images, volumes, networks and so on. Run each container - for the database and for the API:
+[Install Docker](https://www.docker.com/products/docker-desktop) if you don't have it yet and please use a clean environment installation without resources allocation like images, volumes, networks and so on. Run each container - for the database and for the API:
 
 ```sh
 $ docker-compose up --build --force-recreate --no-deps -d database
@@ -31,13 +31,13 @@ $ docker-compose up --build --force-recreate --no-deps -d api
 ```
 
 It will run both Web and MongoDB containers in Development environment on `localhost:9090`.
-For other environments change FLASK_ENV in `docker-compose.yml` in `api` service declaration:
+For other environments change `FLASK_ENV` in `docker-compose.yml` in `api` service declaration:
 
 ```sh
 api:
    ...
     environment:
-      - FLASK_ENV=production
+      - FLASK_ENV=Production
 ```
 
 You can use Development, Production or Testing or add your own environment in `src/config.py`.
